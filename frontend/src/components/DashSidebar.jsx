@@ -1,14 +1,16 @@
 import React ,{useState,useEffect}from 'react'
 import {Sidebar} from 'flowbite-react'
-import {HiUser,HiArrowSmRight} from 'react-icons/hi'
+import {HiUser,HiArrowSmRight,HiDocumentText} from 'react-icons/hi'
 import { Link } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 import { signoutSuccess } from '../redux/user/userSlice'
 import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 function DashSidebar() {
   const location=useLocation();
   const [tab,setTab]=useState('');
   const dispatch=useDispatch();
+  const {currentUser}=useSelector(state => state.user);
   useEffect(()=>{
     const urlParams=new URLSearchParams(location.search);
     const tabFromUrl=urlParams.get('tab');
@@ -35,12 +37,18 @@ function DashSidebar() {
   return (
     <Sidebar className='w-full md:w-56'>
       <Sidebar.Items>
-        <Sidebar.ItemGroup>
+        <Sidebar.ItemGroup className='flex flex-col gap-1'>
           <Link to="/dashboard?tab=profile">
-            <Sidebar.Item active={tab==='profile'} icon={HiUser} label={'User'} labelColor='dark' as='div'>
+            <Sidebar.Item active={tab==='profile'} icon={HiUser} label={currentUser.isAdmin?'Admin':'User'} labelColor='dark' as='div'>
               Profile
             </Sidebar.Item>
           </Link>
+          {currentUser.isAdmin &&
+          <Link to="/dashboard?tab=posts">
+            <Sidebar.Item active={tab==='posts'} icon={HiDocumentText} labelColor='dark' as='div'>
+              Posts
+            </Sidebar.Item>
+          </Link>}
           <Sidebar.Item active icon={HiArrowSmRight} className='cursor-pointer' onClick={handleSignout}>
              Sign Out
           </Sidebar.Item>
