@@ -93,7 +93,7 @@ export default function DashProfile() {
         <Button type='submit' gradientDuoTone='greenToBlue' outline>
           Update
         </Button>
-        {currentUser.isAdmin && 
+        
           <Link to='/create-post'>
             <Button
               type='button'
@@ -103,10 +103,6 @@ export default function DashProfile() {
               Create a post
             </Button>
           </Link>
-        
-        
-        
-        }
       </form>
       <div className='text-red-500 flex justify-between mt-5'>
         <span onClick={()=>setshowModal(true)} className='cursor-pointer'>Delete Account</span>

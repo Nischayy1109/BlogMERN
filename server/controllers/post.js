@@ -1,9 +1,9 @@
 import { errorHandler } from "../utils/errorHandle.js"
 import Post from "../models/Postmodel.js";
 export const create=async(req,res,next)=>{
-    if(!req.user.isAdmin){
-        return next(errorHandler(403,'You are not allowed to post'));
-    }
+    // if(!req.user.isAdmin){
+    //     return next(errorHandler(403,'You are not allowed to post'));
+    // }
     if(!req.body.title || !req.body.content){
         return next(errorHandler(401,'Please enter all the details'));
     }
